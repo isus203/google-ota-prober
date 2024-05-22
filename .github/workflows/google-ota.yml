@@ -20,6 +20,12 @@ jobs:
       run: |
         sudo apt -y install python2 python3
         pip install pyyaml requests protobuf
+
+    - name: Clone repo
+      run: |
+        git clone https://github.com/isus203/google-ota-prober
+        cd
+        cd google-ota-prober
         
     - name: Search ota
       run: |
