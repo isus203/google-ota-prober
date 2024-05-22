@@ -40,6 +40,6 @@ jobs:
         tag_name: ${{ github.run_id }}
         body: |
           Device name: ${{ github.event.inputs.DEVICE_NAME }}
-          Code name: ${{ github.event.inputs.CODE_NAME } 
+          Code name: ${{ github.event.inputs.CODE_NAME }} 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
