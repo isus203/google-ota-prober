@@ -7,10 +7,10 @@ on:
         description: 'DEVICE_NAME'
         required: true
         default: 'Tecno Spark 9 Pro'
-      VERSION:
-        description: 'VERSION'
+      CODE_NAME:
+        description: 'CODE_NAME'
         required: true
-        default: ' '
+        default: 'TECNO-KH7n'
         
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
         name: ${{ github.run_id }}
         tag_name: ${{ github.run_id }}
         body: |
-          Device: ${{ github.event.inputs.DEVICE_NAME }}
-          VERSION: ${{ github.event.inputs.VERSION } 
+          Device_name: ${{ github.event.inputs.DEVICE_NAME }}
+          Code name: ${{ github.event.inputs.CODE_NAME } 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
