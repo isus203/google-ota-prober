@@ -5,9 +5,10 @@ on:
  
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+     if: github.event.repository.owner.id == github.event.sender.i
+     runs-on: ubuntu-latest
+     steps: 
+     #- uses: actions/checkout@v4
     - name: Prepare the environment
       run: |
         sudo apt -y install python2 python3
