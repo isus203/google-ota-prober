@@ -27,7 +27,7 @@ jobs:
         git clone https://github.com/isus203/google-ota-prober
         cd google-ota-prober
         
-    - name: Search ota
+    - name: Search ota / download
       run: |
         python probe.py --download
 
