@@ -50,7 +50,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: | 
-          ${{ * }}.zip
+          ${{ github.event.inputs.* }}.zip
         name: ${{ github.event.inputs.DEVICE_NAME }}
         body: |
           Device: ${{ github.event.inputs.DEVICE_NAME }}
