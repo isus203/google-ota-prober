@@ -2,11 +2,6 @@ name: google-ota
 
 on:
   workflow_dispatch:
-    inputs:
-      DEVICE_NAME:
-        description: 'DEVICE_NAME'
-        required: true
-        default: 'Tecno Spark 9 Pro'
 
 jobs:
   build:
@@ -24,7 +19,6 @@ jobs:
     - name: Clone repo
       run: |
         git clone https://github.com/isus203/google-ota-prober
-        cd
         cd google-ota-prober
         
     - name: Search ota
