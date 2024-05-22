@@ -5,7 +5,6 @@ on:
  
 jobs:
   build:
-    if: github.event.repository.owner.id == github.event.sender.i
     runs-on: ubuntu-latest
     steps: 
     - name: Prepare the environment
