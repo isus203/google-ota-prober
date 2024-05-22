@@ -31,5 +31,3 @@ jobs:
         name: ${{ github.event.inputs.DEVICE_NAME }}
         body: |
           Device: ${{ github.event.inputs.DEVICE_NAME }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
