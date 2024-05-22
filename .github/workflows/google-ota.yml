@@ -46,7 +46,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: | 
-          ${{ github.event.inputs.* }}.zip
+          workspace/google-ota-prober/*.zip
         name: ${{ github.event.inputs.DEVICE_NAME }}
         body: |
           Device: ${{ github.event.inputs.DEVICE_NAME }}
