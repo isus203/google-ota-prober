@@ -32,7 +32,6 @@ jobs:
         cd workspace
         echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT 
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }}
-        cd google-ota-prober
 
     - name: Installing dependency 
       run: |
