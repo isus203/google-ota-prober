@@ -5,9 +5,9 @@ on:
  
 jobs:
   build:
-     if: github.event.repository.owner.id == github.event.sender.i
-     runs-on: ubuntu-latest
-     steps: 
+    if: github.event.repository.owner.id == github.event.sender.i
+    runs-on: ubuntu-latest
+    steps: 
      #- uses: actions/checkout@v4
     - name: Prepare the environment
       run: |
