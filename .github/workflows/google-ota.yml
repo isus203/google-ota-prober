@@ -25,30 +25,21 @@ jobs:
         sudo apt update
         sudo apt -y upgrade
         sudo apt -y install python2 python3
-      
-    - name: dir
-      run: |
-        mkdir workspace
-        cd workspace
-        echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT 
-      id: pwd
-       
-    - name: Installing dependency 
+        pip install pyyaml requests protobuf
+        
+    - name: Clone repo
       run: |
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }}
-        pip install pyyaml requests protobuf
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
-
+        
     - name: Search ota
       run: |
         python probe.py --download
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
         files: | 
-          workspace/google-ota-prober/*.zip
+          google-ota-prober/*.zip
         name: ${{ github.event.inputs.DEVICE_NAME }}
         body: |
           Device: ${{ github.event.inputs.DEVICE_NAME }}
