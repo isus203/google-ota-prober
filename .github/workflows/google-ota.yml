@@ -7,10 +7,6 @@ on:
         description: 'DEVICE_NAME'
         required: true
         default: 'Tecno Spark 9 Pro'
-      DEVICE_TREE_URL:
-        description: 'DEVICE_TREE_URL'
-        required: true
-        default: 'https://github.com/isus203/google-ota-prober'
 
 jobs:
   build:
@@ -26,12 +22,6 @@ jobs:
         sudo apt -y upgrade
         sudo apt -y install python2 python3
         pip install pyyaml requests protobuf
-        
-    - name: Clone repo
-      run: |
-        cd 
-        git clone ${{ github.event.inputs.DEVICE_TREE_URL }}
-        cd google-ota-prober
         
     - name: Search ota
       run: |
