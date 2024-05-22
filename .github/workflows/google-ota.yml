@@ -23,7 +23,7 @@ jobs:
         python probe.py --download
 
     - name: Upload to Release
-      uses: softprops/action-gh-release@v1
+      uses: actions/upload-artifact@v4
       with:
         files: | 
           google-ota-prober/*.zip
