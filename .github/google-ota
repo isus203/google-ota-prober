@@ -1,4 +1,4 @@
-name: google-ota-prober
+name: google-ota
 
 on:
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }}
         cd google-ota-prober
 
-    - name: Clone common tree
+    - name: Installing dependency 
       run: |
         pip install -r requirements.txt
 
@@ -47,9 +47,9 @@ jobs:
       with:
         swap-size-gb: 12
 
-    - name: Building recovery
+    - name: Search ota
       run: |
-        python 
+        python python probe.py --download
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
