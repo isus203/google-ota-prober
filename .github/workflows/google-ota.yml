@@ -2,7 +2,16 @@ name: google-ota
 
 on:
  workflow_dispatch:
- 
+   inputs:
+      DEVICE_NAME:
+        description: 'DEVICE_NAME'
+        required: true
+        default: 'Tecno Spark 9 Pro'
+      VERSION:
+        description: 'VERSION'
+        required: true
+        default: ' '
+        
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +30,6 @@ jobs:
     - name: Search ota
       run: |
         python probe.py --download
-        ls
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
@@ -31,6 +39,7 @@ jobs:
         name: ${{ github.run_id }}
         tag_name: ${{ github.run_id }}
         body: |
-          Target: *.zip
+          Device: ${{ github.event.inputs.DEVICE_NAME }}
+          VERSION: ${{ github.event.inputs.VERSION } 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
