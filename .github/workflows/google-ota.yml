@@ -43,6 +43,7 @@ jobs:
     - name: Search ota
       run: |
         python probe.py --download
+      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
