@@ -27,6 +27,3 @@ jobs:
       with:
         files: | 
           google-ota-prober/*.zip
-        name: ${{ github.event.inputs.DEVICE_NAME }}
-        body: |
-          Device: ${{ github.event.inputs.DEVICE_NAME }}
