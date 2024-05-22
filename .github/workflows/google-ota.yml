@@ -36,7 +36,7 @@ jobs:
 
     - name: Installing dependency 
       run: |
-        pip install -r requirements.txt
+        pip install pyyaml requests protobuf
 
     - name: Search ota
       run: |
