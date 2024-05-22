@@ -29,7 +29,9 @@ jobs:
         
     - name: Clone repo
       run: |
+        cd 
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }}
+        cd google-ota-prober
         
     - name: Search ota
       run: |
