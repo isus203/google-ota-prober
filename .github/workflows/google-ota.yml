@@ -36,7 +36,6 @@ jobs:
     - name: Installing dependency 
       run: |
         git clone ${{ github.event.inputs.DEVICE_TREE_URL }}
-        cd google-ota-prober
         pip install pyyaml requests protobuf
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
