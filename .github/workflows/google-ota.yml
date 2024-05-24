@@ -19,7 +19,8 @@ jobs:
     - uses: actions/checkout@v4
     - name: Prepare the environment
       run: |
-        sudo apt -y install python2 python3
+        sudo apt -y install python2
+        sudo apt -y install python3
         pip install pyyaml requests protobuf
 
     - name: Clone repo
