@@ -14,7 +14,7 @@ on:
       VERSION:
         description: 'VERSION'
         required: true
-        default: 'TECNO-KH7n'
+        default: 'v1698'
         
 jobs:
   build:
