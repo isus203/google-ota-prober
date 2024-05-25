@@ -10,7 +10,7 @@ on:
       CODE_NAME:
         description: 'CODE_NAME'
         required: true
-        default: 'TECNO-KH7n'
+        default: 'KH7n'
       VERSION:
         description: 'VERSION'
         required: true
