@@ -7,5 +7,5 @@ product: "KH7n-RU"
 device: "TECNO-KH7n"
 android_version: "12"
 build_tag: "SP1A.210812.016"
-incremental: "240204V1687" #Indicate the date and version of the system that is installed on the phone 
+incremental: "240416V1698" #Indicate the date and version of the system that is installed on the phone 
 model: "TECNO SPARK 9 Pro"
