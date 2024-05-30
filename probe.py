@@ -5,14 +5,17 @@ from google.protobuf import text_format
 from utils import functions
 import argparse, requests, gzip, shutil, os, yaml
 
+def load_config(config_file):
+    with open(config_file, 'r') as file:
+        return yaml.safe_load(file)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--debug', action='store_true', help='Print debug information to text file.')
+parser.add_argument('-c', '--config', default='config.yml', help='Path to the config file')
 parser.add_argument('--download', action='store_true', help='Download the OTA file.')
 args = parser.parse_args()
 
-with open('config.yml', 'r') as file:
-    config = yaml.safe_load(file)
-    file.close()
+config = load_config(args.config)
 
 current_build = config['build_tag']
 current_incremental = config['incremental']
@@ -21,6 +24,9 @@ model = config['model']
 device = config['device']
 oem = config['oem']
 product = config['product']
+
+print("Checking device... " + model)
+print("Current version... " + current_incremental)
 
 headers = {
     'accept-encoding': 'gzip, deflate',
@@ -38,6 +44,7 @@ response = checkin_generator_pb2.AndroidCheckinResponse()
 build.id = f'{oem}/{product}/{device}:{android_version}/{current_build}/{current_incremental}:user/release-keys' # Put the build fingerprint here
 build.timestamp = 0
 build.device = device
+print("Fingerprint... " + build.id)
 
 # Checkin proto
 checkinproto.build.CopyFrom(build)
@@ -81,10 +88,25 @@ try:
             f.close()
     for entry in response.setting:
         if b'https://android.googleapis.com' in entry.value:
-            print("OTA URL obtained: " + entry.value.decode())
+            otaurl = entry.value.decode()
             found = True
             download_url = entry.value.decode()
             break
+    if found:
+        print("\nUpdate found....")
+        for entry in response.setting:
+            if entry.name.decode() == "update_title":
+                print("\nTITLE:\n" + entry.value.decode())
+                break
+        for entry in response.setting:
+            if entry.name.decode() == "update_description":
+                print("\nCHANGELOG:\n" + entry.value.decode())
+                break
+        print("\nOTA URL obtained: " + otaurl)
+        for entry in response.setting:
+            if entry.name.decode() == "update_size":
+                print("SIZE: " + entry.value.decode())
+                break
     if args.download:
         print("Downloading OTA file")
         with requests.get(download_url, stream=True) as resp:
@@ -105,6 +127,6 @@ try:
                         print(f"Downloaded {progress} of {total_size} bytes ({percentage:.2f}%)", end="\r")
             print(f"File downloaded and saved as {filename}!")
     if not found:
-        print("No OTA URL found for your build. Either Google does not recognize your build fingerprint, or there are no new updates for your device.")
+        print("There are no new updates for your device.")
 except: # This should not happen.
     print("Unable to obtain OTA URL.")
