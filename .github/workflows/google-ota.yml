@@ -1,51 +1,30 @@
-name: google-ota
-
+name: GH Actions Cron Schedule
 on:
- workflow_dispatch:
-   inputs:
-      DEVICE_NAME:
-        description: 'DEVICE_NAME'
-        required: true
-        default: 'Tecno Spark 9 Pro'
-      CODE_NAME:
-        description: 'CODE_NAME'
-        required: true
-        default: 'KH7n'
-      VERSION:
-        description: 'VERSION'
-        required: true
-        default: 'v1698'
-        
+  schedule:
+    - cron:  '0 * * * *'
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
     - uses: actions/checkout@v4
     - name: Prepare the environment
       run: |
-        sudo apt -y install python2
-        sudo apt -y install python3
-        pip install pyyaml requests protobuf
+        pip install -r requirements.txt
 
-    - name: Clone repo
+    - name: Check ota
+      shell: bash
+      env:
+        bot_token: ${{ secrets.BOT_TOKEN }}
+        chat_id: ${{ secrets.CHAT_ID }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git clone https://github.com/isus203/google-ota-prober
-        cd google-ota-prober
-        
-    - name: Search ota / download
-      run: |
-        python probe.py --download
+        for file in config/config.yml; do python probe.py -c $file && echo "//"; done
 
-    - name: Upload to Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          *.zip
-        name: ${{ github.run_id }}
-        tag_name: ${{ github.run_id }}
-        body: |
-          Device name: ${{ github.event.inputs.DEVICE_NAME }}
-          Code name: ${{ github.event.inputs.CODE_NAME }}
-          Version: ${{ github.event.inputs.VERSION }}
+    - name: Check for updates and create release
+      if: success()
+      run: |
+        bash release.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
